@@ -1,0 +1,48 @@
+.blog-post {
+    display:flex;
+    justify-content:center;
+    position: relative;
+    & .slick-slide {
+      padding:20px;
+    & img {
+        width:100%;
+    }
+    
+    & div p {
+        margin:20px 0;
+    }
+    & img {
+        width:100%;
+  
+        object-fit: cover;
+    }
+    & p {
+        font-size:14px;
+    }
+    & .blog-concept {
+        margin-bottom: 20px;
+    }
+    }
+    & .chevron_right {
+        right:-20px;
+    }
+    & .chevron_left {
+        left:-20px;
+    }
+    @media only screen and (max-width: 600px) { 
+        & .chevron_right {
+            right:0;
+        }
+        & .chevron_left {
+            left:0;
+        }
+        & .slick-slide {
+            padding:0;
+            text-align: center;
+        
+        }
+    }
+   
+  
+
+}

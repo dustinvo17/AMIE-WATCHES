@@ -1,0 +1,76 @@
+
+
+{% if section.settings.announcement_bar_enabled %}
+    {% if section.settings.bar_home_only %}
+        {% if template.name == "index" %} 
+            {% include 'announcement'  %}
+        {% endif %}
+    {% else  %}
+    {% include 'announcement' %}
+    {% endif %}
+{% endif %}
+
+
+
+
+
+{% schema %}
+    {
+        "name": "Announcement Bar",
+        "settings":[
+            {
+                "type": "checkbox",
+                "id": "announcement_bar_enabled",
+                "label": "Show announcement bar",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "bar_sticky_enabled",
+                "label": "Enable 'sticky' announcement bar",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "bar_home_only",
+                "label": "Show in homepage only",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "announcement_bar_text",
+                "label": "Announcement text",
+                "default": "Announce something here"
+              },
+              {
+                "type": "url",
+                "id": "announcement_bar_link",
+                "label": "Announcement link",
+                "info": "Optional"
+              },
+              {
+                "type": "color",
+                "id": "bar_bg",
+                "label": "Announcement background",
+                "default": "#000000"
+              },
+              {
+                "type": "color",
+                "id": "bar_text_color",
+                "label": "Announcement text color",
+                "default": "#FFFFFF"
+              },
+              {
+                "type": "range",
+                "id": "bar_padding",
+                "min": 5,
+                "max": 20,
+                "step": 5,
+                "unit": "px",
+                "label": "Announcement vertical space",
+                "default": 10
+              }
+
+        ]
+    }
+{% endschema %}

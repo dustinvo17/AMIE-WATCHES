@@ -1,0 +1,142 @@
+
+
+
+{% if section.settings.header_full_width %}
+{% include 'header-template-section' %}
+{% else %}
+<div class="container">{% include 'header-template-section' %}</div>
+
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+                "type": "checkbox",
+                "id": "header_sticky_enabled",
+                "label": "Enable 'sticky' header",
+                "default":true
+      },
+      {
+        "type": "checkbox",
+        "id": "header_full_width",
+        "label": "Full Width",
+        "default":true
+      },
+      {
+        "type":"header",
+        "content":"Logo"
+      },
+      {
+        "type": "range",
+        "id": "header_padding",
+        "min": 5,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Header vertical space",
+        "default": 20
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "min": 50,
+        "max": 250,
+        "step": 10,
+        "unit": "px",
+        "label": "Custom logo width",
+        "default": 100
+      },
+      {
+        "type":"header",
+        "content":"Menu"
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Menu",
+        "default": "main-menu"
+      },
+      {
+        "type":"header",
+        "content":"Icons"
+      },
+      
+   
+      {
+        "type": "range",
+        "id": "icon_size",
+        "label": "Icon Size", 
+        "min":18,
+        "max":24,
+        "step":2,
+        "default":20,
+        "unit":"px"
+   
+      },
+      {
+        "type": "radio",
+        "id": "icon_cart",
+        "label": "Cart Icon",
+        "default":"shopping_cart",
+        "options":[
+          {
+            "value":"shopping_cart",
+            "label":"Shopping Cart"
+          },
+          {
+            "value":"shopping_basket",
+            "label":"Shopping Basket"
+          }
+         
+          
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "{{ shop.name }}",
+  {% if section.settings.logo %}
+    {% assign image_size = section.settings.logo.width | append:'x' %}
+    "logo": "https:{{ section.settings.logo | img_url: image_size }}",
+  {% endif %}
+  "sameAs": [
+    "{{ settings.social_twitter_link }}",
+    "{{ settings.social_facebook_link }}",
+    "{{ settings.social_pinterest_link }}",
+    "{{ settings.social_instagram_link }}",
+    "{{ settings.social_tumblr_link }}",
+    "{{ settings.social_snapchat_link }}",
+    "{{ settings.social_youtube_link }}",
+    "{{ settings.social_vimeo_link }}"
+  ],
+  "url": "{{ shop.url }}{{ page.url }}"
+}
+</script>
+
+{% if template.name == 'index' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "url": "{{ shop.url }}{{ page.url }}"
+    }
+  </script>
+{% endif %}

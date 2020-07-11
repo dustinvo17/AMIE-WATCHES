@@ -1,0 +1,143 @@
+<div class="wrapper collection-page">
+  
+  {% paginate collection.products by 12 %}
+  <header role="banner" class="collection-page-banner">
+    <div class="banner-text">
+      {% if collection.image != blank %}
+      <h1>{{collection.title}}</h1>
+      {%  else %}
+      <h4 style="margin:50px 0;">{{ collection.title }}</h4>
+      {% endif %}
+
+
+
+    </div>
+    {% if collection.image != blank  %}
+    <img src="{{collection.image | img_url:'master'}}" alt="{{collection.image.alt}}">
+    {% endif %}
+
+
+   
+  </header>
+  <div >
+  
+  <div style="display: flex;justify-content: center;" >
+    <ul class="center">
+      {% for product in collection.products %}
+        <li >
+          {% if product.featured_image != blank %}
+            <a href="{{ product.url | within: collection }}">
+              <img src="{{product.featured_image | img_url:'master'}}" style="width:100%;object-fit: cover;" alt="">
+            </a>
+          {% endif %}
+  
+          <p>
+            <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+          </p>
+          <p>
+            <div>
+              {% if product.compare_at_price > product.price %}
+                {% if product.price_varies %}
+                  {%- assign sale_price = product.price | money -%}
+                  {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                {% else %}
+         
+                  {{ product.price | money }}
+                  <span style="color:red!important;text-transform: uppercase;margin-left:5px;font-weight:bold;">{{ 'products.product.on_sale' | t }}</span>
+                {% endif %}
+              {% else %}
+                {% if product.price_varies %}
+                  {%- assign price = product.price | money -%}
+                  {{ 'products.product.from_text_html' | t: price: price }}
+                {% else %}
+                  {{ product.price | money }}
+                {% endif %}
+              {% endif %}
+            </div>
+    
+  
+            {% unless product.available %}
+              {{ 'products.product.sold_out' | t }}
+            {% endunless %}
+          </p>
+        </li>
+  
+      {% else %}
+        {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+          {% for i in (1..8) %}
+            <a href="#">
+              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+              {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+            </a>
+  
+            <p>
+              <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
+            </p>
+  
+            <p>
+              {{ 1999 | money }}
+            </p>
+          {% endfor %}
+        {% else %}
+          <p>{{ 'collections.general.no_matches' | t }}</p>
+        {% endif %}
+  
+      {% endfor %}
+    </ul>
+  </div>
+ 
+
+ 
+
+  {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+  {% endif %}
+{% endpaginate %}
+</div>
+{% if collection.image != blank  %}
+  <style>
+    .collection-page-banner {
+      display:flex;
+  
+      margin-bottom:50px;
+    }
+    .collection-page-banner .banner-text {
+      width:50%;
+      display:flex;
+      justify-content: flex-start;
+      padding:50px 0;
+      align-items: center;
+      flex-direction: column;
+
+    }
+    .collection-page-banner .banner-text h1 {
+
+                position: relative;
+                width: 280px;
+                word-wrap: break-word;
+                text-align: start;
+                margin-bottom:50px;
+                line-height:100px;
+             
+           
+          
+    }
+    .collection-page-banner .banner-text h1::before {
+                    content:'';
+                    width:70px;
+                    height:5px;
+                    position: absolute;
+                    bottom: -20%;
+                    left:0;
+                    background:black;
+                   
+                }
+    .collection-page-banner img {
+      width:50%;
+      height:80vh;
+      object-fit: cover;
+
+    }
+
+  </style>
+{% endif %}

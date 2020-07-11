@@ -1,0 +1,7 @@
+background:{% if section.settings.overlay_enable %}
+     linear-gradient(rgba(0, 0, 0, {{section.settings.overlay_opacity}}), 
+     rgba(0, 0, 0, {{section.settings.overlay_opacity}}))  
+     {% endif %} 
+     center center / cover no-repeat,
+      url({{block.settings.img | img_url: 'master' }}) 
+      center top / cover no-repeat;

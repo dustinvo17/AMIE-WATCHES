@@ -1,0 +1,156 @@
+<section class="testimonial">
+    <div class="wrapper">
+        {% if section.settings.heading != blank %}
+            <h4 class="center title-bot"> {{section.settings.heading}}</h4>
+        {% endif %}
+
+
+
+    {% if section.blocks.size > 0  %}
+    <div class="testimonial-slides" data-users="{{section.settings.users}}">
+            
+
+            {%  for block in section.blocks  %}
+            
+                <div class="testimonial-slide-item center">
+                    {% if section.settings.star %}
+                    <div style="display:flex;margin:10px 0;">
+                        {% for i in (1..5) %}
+                    <i class="material-icons" style="color:{{section.settings.color}}!important;">star</i>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                   {{ block.settings.text }} 
+              
+              
+                    {% if block.settings.photo != blank %}
+                
+                <img style="width:{{block.settings.size}}px;height:{{block.settings.size}}px;object-fit:cover;border-radius:{{block.settings.photo_border}};" src="{{block.settings.photo | img_url: 'master'}}">
+                    {% endif %}
+                    <div class="testimonial-user_name">{{block.settings.name}}</div>
+                </div>
+
+            {% endfor %}
+   
+
+    </div>
+    {% endif %}
+
+</div>
+</section>
+{% if section.settings.quote %}
+<style>
+      .testimonial-slide-item p {
+          quotes: ''\201c' '\201d'';
+      }
+    .testimonial-slide-item p::before {
+        content:open-quote;
+    }
+    .testimonial-slide-item p::after {
+        content:close-quote;
+    }
+
+</style>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Testimonial",
+    "settings": [
+    {
+    "type":"text",
+    "label":"Heading",
+    "id":"heading",
+    "default":"Testimonial"              
+    },
+   
+      {
+          "type":"checkbox",
+          "id":"quote",
+          "label":"Show Quote",
+          "default":true 
+      },{
+        "type":"checkbox",
+        "id":"line",
+        "label":"Show Seperation Line",
+        "default":true 
+    },
+    {
+        "type":"checkbox",
+        "id":"star",
+        "label":"Show Star",
+        "default":true 
+    },
+     {
+         "type":"color",
+         "id":"color",
+         "label":"Star Color",
+          "default":"#FFC735"
+     },
+     {
+         "type":"range",
+         "id":"users",
+         "label":"Number Customers Showed Per Slide",
+         "min":1,
+         "max":5,
+         "default":1,
+         "step":1
+     }
+
+  
+    ],
+    "blocks":[
+        {
+            "type":"text",
+            "name":"Testimonial",
+            "settings":[
+               
+                {
+                    "type":"richtext",
+                    "id":"text",
+                    "label":"Testimonial"
+                },
+                {
+                    "type":"image_picker",
+                    "id":"photo",
+                    "label":"Customer Photo"
+                },
+                {
+                    "type":"range",
+                    "min":100,
+                    "max":200,
+                    "default":120,
+                    "unit":"px",
+                    "label":"Photo Size",
+                    "step":10,
+                    "id":"size"
+                }
+                ,
+                {
+                    "type":"text",
+                    "label":"Customer Name",
+                    "id":"name"
+
+                },
+                {
+                    "type":"select",
+                    "id":"photo_border",
+                    "label":"Photo Border",
+                    "info":"Make customer photo rounded-border or circel shape",
+                    "default":"10px",
+                    "options":[
+                        {"label":"Rounded","value":"10px"},
+                        {"label":"Circle","value":"50%"},
+                        {"label":"Normal","value":"0px"}
+                    ]
+                }
+            ]
+        }
+    ],
+    "presets": [{
+        "name": "Testimonial",
+        "category": "Text"
+    }]
+  }
+
+{% endschema %}

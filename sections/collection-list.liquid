@@ -1,0 +1,110 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Collection list" section in the Theme Editor.
+
+  Theme Store required settings
+  - Heading: title of the collection list section
+  - Collection
+{%- endcomment -%}
+<section class="collection-list" style="margin:30px 0;">
+
+  {% if section.settings.title != blank %}
+  {% if section.settings.show_head %}
+  <h4  class="center title-bot">{{ section.settings.title | escape }}</h4>
+ 
+ {% endif %}
+   
+  {% endif %}
+  <div class="collection-list-wrapper" style="grid-template-columns: repeat({{section.settings.col}},1fr);">
+    {% for block in section.blocks %}
+    {%- assign collection = collections[block.settings.collection] -%}
+
+    <a href="{{collection.url}}"  {{ block.shopify_attributes }}>
+      {% if collection.image != blank or collection.products.first != blank %}
+        {%- assign image_object = collection.image | default: collection.products.first.featured_image -%}
+        <div class="collection-list__image">
+          <img src="{{image_object   | img_url: 'master'}}" >
+          
+        </div>
+      {% elsif collection == empty %}
+        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+        {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+      {% endif %}
+
+      {%- assign default_label = 'homepage.onboarding.collection_title' | t -%}
+   
+     
+      </a>
+  {% endfor %}
+
+  {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+  {% endif %}
+  </div>
+
+</section>
+<style>
+
+</style>
+{% schema %}
+  {
+    "name": "Collection list",
+    "max_blocks": 12,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Collection list"
+      }
+      ,
+      {
+        "type":"checkbox",
+        "id":"show_head",
+        "default":true,
+        "label":"Show Heading"
+      },
+      {
+        "type":"range",
+        "min":1,
+        "max":4,
+        "default":3,
+        "step":1,
+        "label":"Items Per Row",
+        "id":"col"
+
+        
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection list",
+        "category": "Collection",
+        "blocks": [
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

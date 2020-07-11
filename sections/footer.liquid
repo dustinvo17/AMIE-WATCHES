@@ -1,0 +1,128 @@
+<footer>
+
+<div class="wrapper footer-wrapper">
+
+  <div class="footer-wrapper-menu" {% if section.blocks.size >= 2 %}  style="justify-content:space-between;" {% endif %} >
+    {%  for block in section.blocks %}
+    {%- assign menu = block.settings.menu -%}
+    {% if linklists[menu].links.size > 0 %}
+    <ul {% if section.blocks.size <= 2 %} style="flex-basis:25%;" {% endif %} >
+      {% for link in linklists[menu].links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+   {% endif %}
+   
+    {% endfor %}
+
+  </div>
+  <div class="footer-wrapper-store">
+    {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+    {% if section.settings.social %}
+    <ul class="footer-social-icons">
+      {% for social in social_accounts %}
+        {%- assign social_handle = social | handleize -%}
+        {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+        {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+  
+        {% if settings[social_link] != blank %}
+          <li>
+            <a href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+              {% include social_icon %}
+      
+            </a>
+          </li>
+        {% endif %}
+  
+      {% endfor %}
+    </ul>
+    {% endif %}
+  
+    {% if section.settings.show_payment_icons %}
+      {% unless shop.enabled_payment_types == empty %}
+        <ul class="payment-icons">
+          {% for type in shop.enabled_payment_types %}
+            <li>
+              {{ type | payment_type_svg_tag: class: 'icon' }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endunless %}
+    {% endif %}
+   
+  
+   
+    <div>
+      <small>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}. {{ powered_by_link }}</small>
+    </div>
+
+    
+  </div>
+ 
+
+</div>
+ 
+</footer>
+<style>
+.footer-wrapper a , .footer-wrapper p , .footer-wrapper li , .footer-wrapper small  {
+  color:{{section.settings.text_color}}!important;
+
+}
+.footer-wrapper svg {
+  fill:{{section.settings.text_color}}!important;
+}
+.footer-wrapper {
+  background:{{section.settings.bg_color}};
+
+}
+
+</style>
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type":"checkbox",
+        "label":"Show Social Icons",
+        "id":"social"
+      },
+      {
+        "type":"checkbox",
+        "label":"Show Payment Icons",
+        "id":"show_payment_icons"
+      },
+      {
+        "type":"header",
+        "content":"Color"
+      },
+      {
+        "type":"color",
+        "label":"Text",
+        "id":"text_color"
+      },
+      {
+        "type":"color",
+        "label":"Background",
+        "id":"bg_color",
+        "default":"transparent"
+      }
+      
+    ],
+    "blocks": [
+    {
+      "name":"Menu",
+      "type":"menu",
+      "settings":[
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    
+    }
+    
+    ]
+  }
+
+{% endschema %}

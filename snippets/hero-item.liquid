@@ -1,0 +1,19 @@
+
+<div class="hero-item carousel-item" style="{% include 'hero-background' %}">
+    {% if block.settings.show_content %}
+    <div class="content-wrapper {{block.settings.content_alignment}}">
+        <div class="hero-content"style="color:{{block.settings.text_color}}!important;">
+        <h2 style="font-size:{{block.settings.heading_size}}px;">{{block.settings.heading}}</h2>
+            
+                </h4>
+                <p>{{block.settings.text}}</p>
+           
+            <a style="background-color: {{block.settings.btn_bg}}!important;color:{{block.settings.text_color}}!important" class="btn" href="{{block.settings.btn_link}}"> {{block.settings.btn}}
+        </a>
+    
+        </div>
+
+    </div>
+    {% endif %}
+
+</div>

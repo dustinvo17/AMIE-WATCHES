@@ -1,0 +1,163 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available in the "Header" section in the theme editor.
+
+  Theme Store required settings
+  - Show announcement
+  - Text: message to announce
+  - Link: link of the announcement bar
+
+
+  Theme Store optional settings
+  - Home page only: only shows on the home page
+{%- endcomment -%}
+<section data-section-id="{{ section.id }}" data-section-type="header">
+  <div id="mini-cart">
+
+    <cart-mini :cart="cart" v-on:remove-item-from-cart="removeItemFromCart"></cart-mini>
+  </div>
+  
+  <div class="header-menu">
+    <div class="container">
+      <div class="header-menu-top">
+        <div>
+          <p>MENU</p>
+          <i class="material-icons close-menu-icon" style="font-size:30px;cursor:pointerl"  >clear</i>
+  
+        </div>
+        
+      </div>
+      <ul >
+        {% for link in linklists[section.settings.menu].links %}
+          {% if link.links != blank %}
+            <li >
+              <a href="#" class='dropdown-trigger valign-wrapper' href='#' data-target='dropdown1' >
+                {{ link.title }}
+                <i class="material-icons right">arrow_drop_down</i>
+              </a>
+              <ul id='dropdown1' class='dropdown-content'>
+                {% for childlink in link.links %}
+                  <li>
+                    <a href="{{ childlink.url }}">
+                      {{ childlink.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% else %}
+            <li class="valign-wrapper">
+              <a href="{{ link.url }}">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+    </div>
+  </div>
+ 
+    <!-- Dropdown Structure -->
+  <div class="header-wrapper">
+  
+  
+      <nav role="navigation" class="navbar-header valign-wrapper"  data-sticky-bar={{section.settings.header_sticky_enabled}}>
+          <div>
+      
+            <div class="logo-container" >
+              {% if section.settings.logo != blank %}
+              <div class="logo-image">
+               <a href="/"><img  src="{{section.settings.logo | img_url: 'master'}}" atl="{{shop.name}} logo" ></a> 
+              </div>
+              {% else %}
+            
+                <a class="logo-store-name" href="{{ routes.root_url }}">{{ shop.name }}</a>
+             
+              {% endif%}
+            </div>
+           
+         
+
+          </div>
+       
+          <ul class="icon-container">
+            {% if section.settings.search_enable %}
+             {% include 'search-form' %}
+   
+            {% endif %}
+            <li  class="valign-wrapper">
+              <a class="header-cart-icon">
+                <i class="material-icons">{{section.settings.icon_cart}}</i>
+             
+              </a>
+              
+            </li>
+            <li class="valign-wrapper header-hamburger">
+              <i class="material-icons right">menu</i>
+            </li>
+  
+          </ul>
+     
+        
+  
+      </nav>
+  </div>
+  
+  
+   
+  </section>
+  
+  
+    <style>
+     
+      .logo-image {
+       
+       
+        max-width: {{ section.settings.logo_max_width }}px;
+      }
+    
+     
+      .header-wrapper {
+        padding: {{section.settings.header_padding}}px 0;
+      }
+     
+      
+      .navbar-header i.material-icons  {
+        color:inherit;
+        font-size:{{section.settings.icon_size}}px;
+      }
+      .navbar-header i.left {
+        margin-right:5px;
+      }
+      .navbar-header i.right {
+        margin-left:5px;
+      }
+    
+      .navbar-header li, .navbar-header li a  , a.logo-store-name,  .navbar-header i.material-icons {
+        color:{{settings.header_text}}!important;
+        cursor: pointer;
+      }
+     
+      .search-form input[type=text]::placeholder {
+        color:{{settings.header_text}}!important;
+        font-weight:200;
+        font-size:14px;
+      }
+      .navbar-header li:hover,  .navbar-header li a:hover, a.logo-store-name:hover  {
+        color:{{settings.header_text_hover}}!important;
+      }
+      .search-form input[type=text] {
+        border-bottom:1px solid {{settings.header_text}}!important;
+      
+      }
+      .search-form input[type=text]:focus{
+        border-bottom: 1px solid {{settings.header_text_hover}}!important;
+        box-shadow: 0 1px 0 0 {{settings.header_text_hover}}!important;
+      }
+
+     
+      
+    </style>
+  
+  

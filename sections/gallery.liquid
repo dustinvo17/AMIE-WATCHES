@@ -1,0 +1,51 @@
+<div id="modal1" class="modal gallery-modal">
+    <div class="modal-content">
+    <img class="gallery-img-modal" src="" style="object-fit:cover;"/>
+    </div>
+</div >
+<section class="gallery-section" style="padding:50px 0;">
+ 
+        {% if section.blocks.size > 0 %}
+            <ul class="gallery-wrapper" data-blocks="{{section.blocks.size}}"> 
+                {% assign width = 100 |  divided_by: section.blocks.size %}
+                {% for block in section.blocks %}
+             
+                <li class="gallery-item " data-src="{{block.settings.image | img_url: 'master' }}">
+                    <img class="materialboxed gallery-materialboxed" src="{{block.settings.image | img_url: 'master' }}"/>
+
+                </li>
+              
+                {% endfor %}
+
+            </ul>
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% schema %}
+    {
+        "name":"Gallery",
+        "blocks":[
+            {
+                "name":"Image",
+                "type":"image",
+                "settings":[
+                    {
+                        "type":"image_picker",
+                        "id":"image",
+                        "label":"Add Image"
+                    }
+                ]
+            }
+        ],
+
+        "presets": [
+      {
+        "name": "Gallery",
+        "category": "Image"
+      }
+    ]
+    }
+{% endschema %}

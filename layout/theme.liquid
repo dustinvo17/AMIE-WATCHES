@@ -1,0 +1,114 @@
+<!doctype html>
+<html class="no-js supports-no-cookies" lang="{{ shop.locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_accent }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"/>
+  <!-- Add the slick-theme.css if you want default styling -->
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {%- endif -%}
+
+  {%- capture seo_title -%}
+    {{ page_title }}
+    {%- if current_tags -%}
+      {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+      &ndash; {{ shop.name }}
+    {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title | strip }}</title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {% include 'social-meta-tags' %}
+
+  {% include 'css-variables' %}
+
+  
+
+  <script>
+    document.documentElement.className = document.documentElement.className.replace('no-js', '');
+
+    window.theme = {
+      strings: {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }}
+      },
+      moneyFormat: {{ shop.money_format | json }}
+    };
+  </script>
+
+  {{ 'app.css'|  asset_url |  stylesheet_tag }}
+  {{'https://fonts.googleapis.com/icon?family=Material+Icons' | stylesheet_tag}}
+  <style>
+     
+     h1,h2,h3,h4,h5,h6 {
+        color:{{settings.heading_color}}!important;
+        
+      }
+     
+  
+      body,div,p,a,span,small,i {
+        color:{{settings.text_color}}!important;
+      }
+      .btn, .btn-small, .btn-large {
+        color:{{settings.btn_color}}!important;
+        background-color:{{settings.btn_bg}}!important;
+    }
+    .btn > * , .btn-small > * , .btn-large > *  {
+      color:{{settings.btn_color}}!important;
+    }
+   
+  
+    input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid {{settings.btn_bg}}!important;
+    box-shadow: 0 1px 0 0 {{settings.btn_bg}}!important;
+    
+  } 
+    h1,h2,h3,h4,h5,h6, .btn > * , .btn-small > * , .btn-large > *   {
+      font-family: {{settings.font_heading}}!important;
+    }
+    div,p,a,span,small {
+      font-family: {{settings.font_body}}!important;
+    }
+      
+
+  </style>
+
+  {{ content_for_header }}
+</head>
+
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }} body-main">
+  <a style="display:none;" class="in-page-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+  {% section 'announcement' %}
+  {% section 'header' %}
+
+  <main role="main" id="MainContent">
+    {{ content_for_layout }}
+  </main>
+
+
+
+  {{ 'app.js' |  asset_url | script_tag }}
+  {% section 'footer' %}
+
+</body>
+<script>
+
+
+</script>
+</html>
+

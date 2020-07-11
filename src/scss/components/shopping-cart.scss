@@ -1,0 +1,113 @@
+.shopping-cart-page-container {
+    display:flex;
+    min-height: 70vh;
+ 
+    & .shopping-cart-page-wrap {
+        flex-basis: 50%;
+  
+        &:nth-child(1) {
+        
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+           margin-bottom: 100px;
+            & h1 {
+                position: relative;
+                width: 280px;
+                word-wrap: break-word;
+                text-align: start;
+                margin-bottom:50px;
+                line-height:100px;
+                &::before {
+                    content:'';
+                    width:70px;
+                    height:5px;
+                    position: absolute;
+                    bottom: -20%;
+                    left:0;
+                    background:black;
+                }
+            }
+        
+           
+        }
+        &:nth-child(2){
+            padding:40px 80px;
+        }
+       
+    }
+    & ul {
+        display:flex;
+        flex-direction: column;
+    
+        & img {
+            max-width:120px;
+            max-height: 120px;
+            object-fit: cover;
+        }
+        & .shopping-cart-page-item {
+            display:flex;
+            margin-bottom: 30px;;
+            &__info {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-left:20px;
+                flex-grow: 1;
+                
+            
+            }
+            &__form {
+                display:flex;
+                align-items: center;
+                & input[type=number]::-webkit-inner-spin-button, 
+                input[type=number]::-webkit-outer-spin-button { 
+                  -webkit-appearance: none; 
+                  margin: 0; 
+                }
+                & input {
+                    max-width:30px;
+                    max-height: 30px;
+                    margin-left: 20px!important;
+                    margin-right:20px;
+                    padding:5px!important;
+                    text-align: center;
+                    border:none!important;
+                    background:#EEEEEE;
+        
+        
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 1100px) { 
+        flex-direction: column;
+        & .shopping-cart-page-wrap {
+            flex-basis: 100%;
+            &:nth-child(1) {
+        
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                & h1 {
+                   text-align: center;
+                    width: 100%;
+                    &::before {
+                        left:50%;
+                        transform: translateX(-50%);
+                    }
+                
+                }
+            }
+            &:nth-child(2){
+                padding:20px;
+            }
+           
+        }
+     }
+
+
+   
+   
+}

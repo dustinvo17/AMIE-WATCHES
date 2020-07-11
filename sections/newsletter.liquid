@@ -1,0 +1,85 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Newsletter" section on the Theme Editor.
+
+  Theme Store required settings
+  - Heading: title of the newsletter section
+  - Subheading: description of the newsletter section
+{%- endcomment -%}
+<section class="newsletter-section">
+  <div class="wrapper" style="text-align: center;display: flex;flex-direction: column;justify-content: center;">
+    {% if section.settings.section_title != blank %}
+    <h4 >{{ section.settings.section_title | escape }}</h4>
+  {% endif %}
+  {% if section.settings.subheading != blank %}
+    <p>{{ section.settings.subheading | escape }}</p>
+  {% endif %}
+
+  {% form 'customer',class:'newsletter' %}
+    {{ form.errors | default_errors }}
+    {% if form.posted_successfully? %}
+      <p style="font-style: italic;font-weight: 900;font-size:20px;">{{ 'general.newsletter_form.confirmation' | t }}!</p>
+    {% else %}
+    <div class="newsletter-form-container"> 
+      <div >
+        <div>
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email"
+            name="contact[email]"
+            id="Email"
+            value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+            placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+            autocorrect="off"
+            autocapitalize="off" class="validate">
+            
+  
+        </div>
+     
+  
+      </div>
+  
+        <button type="submit" class="btn" name="commit" id="Subscribe">
+          <span>{{section.settings.btn}}</span>
+        </button>
+
+    </div>
+ 
+    {% endif %}
+  {% endform %}
+
+  </div>
+
+</section>
+
+{% schema %}
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Heading",
+        "default": "Subscribe to our newsletter"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "A short sentence describing what someone will receive by subscribing"
+      },
+      {
+        "type": "paragraph",
+        "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+      },
+      {
+        "type":"text",
+        "id":"btn",
+        "label":"Button Text"
+      }
+    ],
+    "presets": [{
+      "name": "Newsletter",
+      "category": "Promotional"
+    }]
+  }
+{% endschema %}

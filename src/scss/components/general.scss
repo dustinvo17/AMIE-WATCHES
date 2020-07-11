@@ -1,0 +1,146 @@
+
+*, body {
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+}
+
+.sticky-bar {
+
+    position:fixed;
+    z-index: 50;
+    top:0;
+    left:0;
+ 
+  
+    
+}
+.wrapper {
+    position: relative;
+    padding:50px;
+}
+@media only screen and (max-width: 1100px) { 
+    .wrapper{ 
+        padding:30px 20px;
+    }
+}
+@mixin grid-collection {
+    &__image {
+        width:100%;
+        & img {
+            width:100%;
+            
+        }
+    }
+    & .col {
+        padding:30px;
+    }
+  
+}
+@mixin collection-layout {
+    text-align: center;
+    & ul {
+        display:flex;
+        justify-content: center;
+        flex-wrap:wrap;
+        & li {
+            margin:30px; 
+            & p {
+                margin:10px 0;
+            }
+        }
+    }
+}
+
+.chevron {
+    cursor: pointer;
+    border-radius: 50%;
+    
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%); 
+    font-size:16px;
+    z-index: 999;
+    &_left {
+        left:10px;
+    }
+    &_right {
+        right:10px;
+    }
+
+
+}
+.title-bot {
+    margin-bottom: 50px;
+}
+.btn {
+
+    box-shadow: none!important;
+    border-radius: 0!important;
+}
+select {
+    display:inline-block;
+ }
+
+ .body-canvas::before {
+     content:'';
+     width:100vw;
+     height:100vh;
+     position: fixed;
+     z-index: 1000;
+     background:rgba(0,0,0,0.4);
+ }
+ .material-icons {
+     cursor: pointer;
+ }
+ body {
+    transition: margin-right .5s;
+}
+@mixin canvas {
+    height: 100vh; /* 100% Full-height */
+    width:480px;/* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    right: -480px;
+    background:white;
+   /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s;
+    z-index: 99999;
+
+    & p, & small {
+        color:#757575;
+        }
+        &-top {
+            display:flex;
+            flex-direction: column;
+            & div:nth-child(1) {
+                display:flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom:60px;
+             }
+        }
+        &-text {
+            padding:20px 0;
+            border-top:1px solid #eeeeee;
+            border-bottom: 1px solid #eeeeee;
+        }
+        & ul {
+            padding:40px 0;
+            & li {
+                display:flex;
+                &:not(:last-child) {
+                    margin-bottom: 40px;
+                }
+            }
+        
+        }
+        @media only screen and (max-width: 600px) { 
+            width:80%;
+            right: -80%;
+            padding-top:40px;
+        }  
+}

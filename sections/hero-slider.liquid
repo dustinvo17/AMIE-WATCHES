@@ -1,0 +1,181 @@
+{% include 'hero-template' %}
+
+      
+{% schema %}
+
+{
+    "name": "Hero Slider",
+    "max_blocks": 5,
+    "settings":[
+    {
+      "type":"header",
+      "content":"Slider"
+    },
+    {
+        "type": "checkbox",
+        "id": "hero_slider_enable",
+        "label": "Enable Image Slider",
+        "default":true,
+        "info":"If this setting is disable, only first block of slider will be visible"
+    },
+    {
+      "type":"range",
+      "min":2,
+      "max":7,
+      "step":1,
+      "unit":"s",
+      "label":"Autoplay Speed",
+      "default":3,
+      "id":"speed"
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_slider_full_width",
+      "label": "Full Width",
+      "default":true
+       
+  },
+  {
+    "type": "range",
+    "id": "hero_slider_height",
+    "label": "Image Height",
+    "min": 400,
+    "max": 800,
+    "step": 20,
+    "unit":"px",
+    "default": 600
+    
+     
+  },
+  {
+    "type": "checkbox",
+    "id": "hero_slider_dots",
+    "label": "Show Slide Indicators",
+    "default":true,
+    "info":"If enabled indicator dots will be visible"
+     
+  },
+  
+  {
+    "type": "checkbox",
+    "id": "overlay_enable",
+    "label": "Enable background overlay",
+    "default":false,
+    "info":"Enable background overlay to increase text readability"
+     
+  },
+  {
+    "type": "range",
+    "id": "overlay_opacity",
+    "label": "Overlay Opacity",
+    "min":0.1,
+    "max":0.8,
+    "default":0.4,
+    "step":0.1
+     
+  }
+
+  ],
+  "blocks":[
+    {
+      "type":"image_picker",
+      "name":"Hero Image",
+      "settings":[
+        {
+          "type":"image_picker",
+          "id":"img",
+          "label":"Image"
+
+        },
+        {
+          "type":"header",
+          "content":"Content"
+      
+        },
+        {
+          "type":"checkbox",
+          "id":"show_content",
+          "label":"Show Content",
+          "default":true
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Heading Size",
+          "min":28,
+          "max":70,
+          "default":28,
+          "unit":"px",
+          "step":7  
+        },
+      
+        {
+          "type":"text",
+          "id":"heading",
+          "label":"Heading",
+      
+          "info":"Optional"
+
+        },
+        {
+          "type":"textarea",
+          "id":"text",
+          "label":"Text",
+    
+          "info":"Optional"
+        },
+        {
+          "type":"text",
+          "id":"btn",
+          "label":"Button Text",
+          "default":"Shop Now",
+          "info":"Optional"
+        },
+        {
+          "id": "btn_link",
+          "type": "url",
+          "label":"Button Link",
+          "info":"If content is disable, this link will activate when users click on the slide image"
+        },
+        {
+          "id":"content_alignment",
+          "type":"select",
+          "label":"Content Alignment",
+          "options": [
+            {"label":"Top Left","value":"content-top content-top-left"},
+            {"label":"Top Center","value":"content-top content-top-center"},
+            {"label":"Top Right","value":"content-top content-top-right"},
+            {"label":"Center","value":"content-center"},
+            {"label":"Bottom Left","value":"content-bottom content-bottom-left"},
+            {"label":"Bottom Center","value":"content-bottom content-bottom-center"},
+            {"label":"Bottom Right","value":"content-bottom content-bottom-right"}
+          ]
+        },
+    
+        
+        {
+          "type":"color",
+          "id":"text_color",
+          "label":"Text Color",
+          "default":"#fff"
+        },
+        {
+          "type":"color",
+          "id":"btn_bg",
+          "label":"Button Background",
+          "default":"#000"
+        }
+       
+      ]
+    }
+  ],
+
+    "presets": [
+      {
+        "name": "Hero Slider",
+        "category": "Image"
+      }
+    ]
+  }
+
+{% endschema %}

@@ -1,0 +1,77 @@
+.logo{
+    &-container {
+        display:flex;
+    justify-content: center;
+    }
+    &-image {
+        height: auto;
+        img {
+            width: 100%;
+        }
+    }
+  }
+
+.navbar {
+    &-header {
+        height: auto;
+        line-height: normal;
+        margin-bottom: 0;
+        background-color:#ffff;
+        box-shadow: none;
+        padding-left:50px;
+        padding-right:50px;
+        display:flex;
+        justify-content: space-between;
+        @media only screen and (max-width: 600px) { 
+            padding-left:20px;
+            padding-right:20px;
+        }
+
+        & ul {
+            display:flex;
+            justify-content: center;
+            
+            & li a:hover {
+                background-color:#ffff;
+            }
+        
+        }
+    
+    }
+
+}
+
+.icon {
+    &-container {
+        position: relative;
+        display:flex;
+        align-items: center;
+        overflow: hidden;
+        height:100%;    
+   
+       & .header-hamburger {
+           margin-left:40px;
+       }
+     
+    }
+   
+ 
+}
+.dropdown-content {
+    & li {
+        &:hover, &.active {
+            background-color: #ffff;
+        }
+    }
+}
+a.logo-store-name {
+    font-size:16px;
+    font-weight:900;
+
+
+  }
+
+
+ .header-border-sticky {
+     border-bottom: 1px solid #E5E5E5;
+ }

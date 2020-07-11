@@ -1,0 +1,23 @@
+.newsletter-section {
+    & p {
+        margin:20px 0;
+    }
+}
+.newsletter {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    &-form-container {
+        display:flex;
+        align-items: center;
+        & input {
+            min-width:300px!important;
+      
+            margin-right:20px!important;
+            @media only screen and (max-width: 600px) { 
+                width: 100%!important;
+                min-width: 100%!important;
+            }
+        }
+    }
+}

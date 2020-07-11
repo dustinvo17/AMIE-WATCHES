@@ -1,0 +1,118 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Rich text" section on the Theme Editor.
+
+  Theme Store required settings
+  - Heading: title of the rich text section
+  - Text: description of the rich text section
+{%- endcomment -%}
+<section>
+
+    <div class="container" style="text-align: {{section.settings.text_align}};">
+      {% if section.settings.logo != blank %}
+        <a style="text-align: {{section.settings.text_align}};"><img style="max-width: 100px;max-height: 100px;" src="{{section.settings.logo | img_url: 'master'}}"></a>
+      {% endif %}
+      {%- if section.settings.title != blank -%}
+    <h4 style="font-size:{{section.settings.head_size}}px;" >{{ section.settings.title | escape }}</h4>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+    <div class="rte" style="font-size:{{section.settings.text_size}}px;margin:30px 0;">
+        {{ section.settings.text }}
+      </div>
+      {% if section.settings.btn != blank %}
+      <a href="{{section.settings.link}}" class="btn">{{section.settings.btn}}</a>
+      {% endif%}
+    </div>
+   
+  {%- endif -%}
+
+
+</section>
+
+{% schema %}
+  {
+    "name": "Rich text",
+    "settings": [
+    {
+      "type":"header",
+      "content":"layout"
+    },
+    {
+      "type":"select",
+      "label":"Text Position",
+      "default":"center",
+      "id":"text_align",
+      "options":[
+        {"label":"Left","value":"left"},
+        {"label":"Center","value":"center"},
+        {"label":"Right","value":"right"}
+      ]
+    },
+    {
+      "type":"header",
+      "content":"Image"
+    },
+    {
+      "type":"image_picker",
+      "label":"Your Logo",
+      "id":"logo"
+    },
+    {
+      "type":"header",
+      "content":"Text"
+    },
+    {
+      "type":"range",
+      "id":"head_size",
+      "label":"Heading Size",
+      "min":24,
+      "max":40,
+      "default": 28,
+      "step":4,
+      "unit":"px"
+    },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Talk about your brand"
+      },
+      {
+        "type":"range",
+        "id":"text_size",
+        "label":"Text Size",
+        "min":14,
+        "max":22,
+        "default": 16,
+        "step":2,
+        "unit":"px"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+      },
+      {
+        "type":"header",
+        "content":"Button"
+      },
+      {
+        "type":"text",
+        "label":"Button Text",
+        "id":"btn"
+
+      },
+      {
+        "type":"url",
+        "label":"Button Link",
+        "id":"link"
+      }
+      
+    ],
+    "presets": [{
+        "name": "Rich text",
+        "category": "Text"
+    }]
+  }
+{% endschema %}

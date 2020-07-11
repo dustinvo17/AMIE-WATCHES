@@ -1,0 +1,162 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add the "Image with text" section in the theme editor.
+
+  Theme Store required settings
+  - Image
+  - Heading: title of the block
+  - Text: description of the block
+
+  Theme Store optional settings
+  - Button label: label associated with the button
+  - Button link: link of the button
+{%- endcomment -%}
+
+<section class="image-with-text">
+
+<div class="wrapper" 
+{% if section.settings.position  == 'left'%}
+  style="justify-content: flex-start;"
+  {%else  %}
+  style="justify-content: flex-end;"
+{% endif %}
+>
+  
+  <div class="image-with-text__image" >
+    <div class="image-with-text__text"
+     {% if section.settings.position  == 'left'%}
+     style="right:-25%;"
+     
+      {% else %}
+      style="left:-25%;"
+      {%endif %}
+    >
+      <div >
+        {% if section.settings.title != blank %}
+        <h5>{{section.settings.title}}</h5>
+        {% endif %}
+        {% if section.settings.text  != blank%}
+          {{section.settings.text}}
+        {% endif %}
+        {% if section.settings.button_label != blank%}
+          <a href="{{section.settings.button_link}}" class="btn">{{section.settings.button_label}}</a>
+        {% endif %}
+      </div>
+  
+    </div>
+    </div>
+
+
+  </div>
+</section>
+<style>
+  .image-with-text .wrapper {
+    display:flex;
+    justify-content: flex-end;
+  }
+.image-with-text__image {
+  background-image:url({{section.settings.image | img_url:'master'}});
+height:{{section.settings.height}};
+background-position:center;
+background-repeat:no-repeat;
+width:80%;
+position: relative;
+
+}
+
+.image-with-text__text  {
+  position: absolute;
+  background:white;
+  border:1px solid lightgray;
+  width:50%;
+
+  top:50%;
+  transform: translateY(-50%);
+  padding:50px 30px;
+}
+.image-with-text__text  p {
+  margin:30px 0;
+}
+@media only screen and (max-width: 600px) {
+  .image-with-text__image { 
+    max-height:400px!important;
+    padding:20px;
+    width: 100%;
+    
+    
+  }
+  .image-with-text__text  { 
+    transform: translateY(0);
+    position:unset;
+    width:100%;
+  }
+  
+  
+}
+</style>
+{% schema %}
+  {
+    "name": "Image with text",
+    "settings": [
+    {
+      "type":"header",
+      "content":"Layout"
+    },
+    {
+      "type":"select",
+      "label":"Height",
+      "id":"height",
+      "options":[
+        {"label":"Full Screen","value":"100vh"},
+        {"label":"750px","value":"750px"},
+        {"label":"650px","value":"650px"},
+        {"label":"550px","value":"550px"}
+  
+      ]
+    },
+    {
+      "type":"select",
+      "label":"Block Position",
+      "id":"position",
+      "options":[
+        {"label":"Left","value":"left"},
+        {"label":"Right","value":"right"}
+      ]
+    },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Image with text"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with text",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,43 @@
+<div id="shopping-cart-page">
+    <div class="shopping-cart-page-container">
+        <div class="shopping-cart-page-wrap">
+            <h1>Shopping Cart</h1>
+            <span></span>
+        </div>
+        <div class="shopping-cart-items shopping-cart-page-wrap">
+          <ul>
+            <li v-for= "item in cart.items" :key="item.id" class="shopping-cart-page-item">
+              <div>
+                  <img :src="item.image">
+
+              </div>
+              <div class="shopping-cart-page-item__info">
+                  <div>
+                       <p>{(item.handle)}</p>
+                       <p>{(item.final_price | money)} </p>
+                    
+                  </div>
+                    <div class="shopping-cart-page-item__form">
+                      <input type="number" min="0" :value="item.quantity" v-on:change="function(e){updateItemQuantity(e,item)}">
+                          <i  class="material-icons" v-on:click="removeItemFromCart(item)" >clear</i>
+                    </div>
+              </div>
+
+          </li>
+          </ul>
+          <div style="display:flex;flex-direction:column;margin-bottom:40px;">
+            <p  >Total: <span style="font-size:20px;margin-left:5px;">{(cart.total_price | money)}</span> </p>
+            <p style="margin:30px 0;">Shipping & taxes calculated at checkout</p>
+            <p>Free Shipping USA</p>
+    
+        </div>
+          <div class="shopping-cart-page-btn">
+
+            <a href="/checkout" class="btn-large">CHECKOUT</a>
+        </div>
+        </div>
+
+    </div>
+
+
+</div>

@@ -1,0 +1,136 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available in the "Featured Collection" section in the theme editor.
+
+  Theme Store required settings
+  - Collection
+
+  Theme Store optional settings
+  - Heading: title of the featured collection section
+{%- endcomment -%}
+{%- assign collection = collections[section.settings.collection] -%}
+
+<section class="featured-collection">
+  {% if collection.products.size > 0 %}
+  <div class="wrapper">
+    {% if section.settings.title != blank  %}
+    {% if section.settings.show %}
+    <h4  class="title-bot center">{{ section.settings.title | escape }}</h4>
+    {% endif %}
+  {% endif %}
+
+
+
+
+  <div class="featured-collection-wrapper" style="grid-template-columns: repeat({{section.settings.col}},1fr);">
+    {% for product in collection.products limit: 12 %}
+    <div class="featured-collection-item">
+      {% if product.featured_image != blank %}
+        <a href="{{ product.url | within: collection }}" class="featured-collection__image" >
+          <img src="{{ product.featured_image |  img_url: 'master' }}" >
+        </a>
+      {% endif %}
+      <div style="text-align: {{section.settings.text_align}};" class="product-info">
+          <p>{{ product.title | escape }}</p>
+          <div>
+            {% if product.compare_at_price > product.price %}
+              {% if product.price_varies %}
+                {%- assign sale_price = product.price | money -%}
+                {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+              {% else %}
+       
+                {{ product.price | money }}
+                <span style="color:red!important;text-transform: uppercase;margin-left:5px;font-weight:bold;">{{ 'products.product.on_sale' | t }}</span>
+              {% endif %}
+            {% else %}
+              {% if product.price_varies %}
+                {%- assign price = product.price | money -%}
+                {{ 'products.product.from_text_html' | t: price: price }}
+              {% else %}
+                {{ product.price | money }}
+              {% endif %}
+            {% endif %}
+          </div>
+          
+          <a  class="waves-light btn" href="{{ product.url | within: collection }}">VIEW ITEM</a>
+        </div>
+     
+     
+    </div>
+  {% else %}
+    {% for i in (1..6) %}
+      <a href="#" class="featured-collection-item">
+        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+        {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+
+        <p>{{ 'homepage.onboarding.product_title' | t }}</p>
+        <p>{{ 1999 | money }}</p>
+      </a>
+    {% endfor %}
+  {% endfor %}
+
+
+
+
+
+  </a>
+ 
+  </div>
+  {% endif %}
+   
+  
+</section>
+<style>
+
+</style>
+{% schema %}
+  {
+    "name": "Featured collection",
+    "settings": [
+    {
+      "type":"checkbox",
+      "id":"show",
+      "label":"Show Collection Title",
+      "default":false
+    },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured collection"
+      },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      },
+      {
+        "type":"range",
+        "min":1,
+        "max":4,
+        "default":3,
+        "step":1,
+        "label":"Products Per Row",
+        "id":"col"
+
+        
+      },
+      {
+        "type":"select",
+        "id":"text_align",
+        "label":"Text Align",
+        "options":[
+          {"label":"Left","value":"left"},
+          {"label":"Center","value":"center"},
+          {"label":"Right","value":"right"}
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured collection",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}

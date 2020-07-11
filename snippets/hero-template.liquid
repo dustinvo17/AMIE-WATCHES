@@ -1,0 +1,36 @@
+
+<div {% if section.settings.hero_slider_full_width == false %} class="container" {% endif %}>
+
+
+
+    <div class="hero-slider carousel-slider carousel" data-blocks={{section.blocks.size}} data-speed={{section.settings.speed}} data-dots={{section.settings.hero_slider_dots}} data-slide-enable={{section.settings.hero_slider_enable}}    >
+   
+        {% if section.settings.hero_slider_enable %}
+        {% for block in section.blocks %}
+        
+    
+
+        {% include 'hero-item' %}
+        {% endfor %}
+    
+        {% else  %}
+        {% assign block = section.blocks.first %}
+        {% include 'hero-item' %}
+        {% endif %}
+   
+           
+</div>
+
+</div>
+
+
+<style>
+    .hero-slider{
+        height:{{section.settings.hero_slider_height}}px;
+    }
+    
+
+  
+   
+ 
+</style>

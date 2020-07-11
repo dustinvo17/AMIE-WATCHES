@@ -1,0 +1,34 @@
+.minicart {
+
+    @include canvas;
+ 
+    &-item__info {
+        padding-left:20px;
+     display:flex;
+     justify-content: space-between;
+     align-items: center;
+     flex-grow: 1;
+    }
+    &  img {
+        max-width:80px;
+        max-height:80px;
+        object-fit: cover;
+    }
+    &-btn {
+        display: flex; 
+        & a {
+            flex-basis: 50%;
+            &:first-child {
+                margin-right:10px;
+            }
+         
+        }
+    }
+    
+ 
+}
+
+
+
+
+

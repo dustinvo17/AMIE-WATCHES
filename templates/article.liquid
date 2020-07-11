@@ -1,0 +1,106 @@
+{%- comment -%}
+  In order to avoid showing "success" message when we post comments
+  with invalid format (eg. blank fields), we added logic to make sure it doesn't show.
+
+  Comment help page:
+  http://docs.shopify.com/themes/liquid-variables/comment
+{%- endcomment -%}
+
+<div class="container">
+
+  
+  <article role="article">
+  
+    {% if article.image %}
+      <img src={{article.image | img_url:'master'}} alt="{{article.image.alt}}" style="width:100%;object-fit: cover;">
+    {% endif %}
+    <div class="container" style="padding:30px 0;">
+      <header role="banner">
+        <h4>{{ article.title }}</h4>
+        <div style="display:flex;justify-content: space-between;margin:20px 0;"> 
+          <div style="display:flex;flex-direction: column;"> 
+   
+            <small>{{ article.published_at | time_tag: format: 'month_day_year' }}</small>
+          </div>
+          <div>
+            {% if settings.social_sharing_blog %}
+            {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+          {% endif %}
+          </div>
+        </div>
+       
+     
+      </header>
+    
+      <div class="rte" style="line-height:35px;">
+        {{ article.content }}
+      </div>
+    
+      {% if article.tags.size > 0 %}
+        <ul>
+          {% for tag in article.tags %}
+            <li>
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    
+ 
+    
+
+    
+    
+   
+  </article>
+</div>
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "articleBody": "{{ article.content | strip_html }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ shop.url }}{{ page.url }}"
+  },
+  "headline": "{{ article.title }}",
+  {% if article.excerpt != blank %}
+    "description": "{{ article.excerpt | strip_html }}",
+  {% endif %}
+  {% if article.image %}
+    {% assign image_size = article.image.width | append: 'x' %}
+    "image": [
+      "https:{{ article | img_url: image_size }}"
+    ],
+  {% endif %}
+  "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "dateCreated": "{{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ article.author }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    {% if settings.share_image %}
+      {% assign image_size = settings.share_image.width | append: 'x' %}
+      "logo": {
+        "@type": "ImageObject",
+        "height": "{{ settings.share_image.height }}",
+        "url": "https:{{ settings.share_image | img_url: image_size }}",
+        "width": "{{ settings.share_image.width }}"
+      },
+    {% elsif article.image %}
+      {% assign image_size = article.image.width | append: 'x' %}
+      "logo": {
+        "@type": "ImageObject",
+        "height": "{{ article.image.height }}",
+        "url": "https:{{ article.image | img_url: image_size }}",
+        "width": "{{ article.image.width }}"
+      },
+    {% endif %}
+    "name": "{{ shop.name }}"
+  }
+}
+</script>
